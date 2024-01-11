@@ -1,0 +1,20 @@
+### Insert conf below for access device to net. ###
+
+enable
+config
+ssh-server enable
+username {{ username }} privilege 15 password 0 {{ password }}
+vlan {{ vlan_id }}
+name TEMP-MGMT
+exit
+interface Vlan{{ vlan_id }}
+description TEMP-MGMT
+ip address {{ ip_address }} {{ subnet_mask }}
+exit
+ip route 0.0.0.0/0 {{ gateway }}
+interface ethernet 1/0/1
+switchport trunk allowed vlan {{ vlan_id }}
+switchport mode trunk
+end
+
+###################################################
